@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1= title
+    if book_list.length
+        ul
+            each book in book_list
+                - let fullName = book.Author?.full_name
+                li
+                    a(href=book.url) #{book.title}
+                    if fullName
+                        |   (#{fullName})
+    else
+        p There are no books.
