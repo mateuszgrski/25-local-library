@@ -2,7 +2,7 @@
   "name": "25-local-library",
   "version": "0.0.0",
   "engines": {
-    "node": ">=20.7.0"
+    "node": ">=16.x"
   },
   "private": true,
   "scripts": {
