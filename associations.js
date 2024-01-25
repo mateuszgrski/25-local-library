@@ -1,18 +1,28 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { DateTime } = require("luxon")
+const {populateDb} = require("./populatedb");
 const dev_db_url = "postgresql://postgres:root@127.0.0.1:5433/local_library"
 const postgresql = process.env.POSTGRESQLDB_URI || dev_db_url;
 const sequelize = new Sequelize(postgresql);
 
-async function test(){
+const POPULATE_DB = false
+
+async function connect(){
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
+    console.log("Syncing tables...")
+    if (POPULATE_DB){
+        await sequelize.sync({ force: true })
+        await populateDb(sequelize)
+    } else {
+        await sequelize.sync()
+    }
 }
-test()
+connect().catch(error => console.log(error))
 
 const Author = sequelize.define('Author', {
     id: {

@@ -287,8 +287,9 @@ exports.book_update_post = [
             title: bookData.title,
             summary: bookData.summary,
             isbn: bookData.isbn,
-            AuthorId: bookData.author,
+            AuthorId: bookData.AuthorId,
         })
+        console.log(book)
         await book.save()
         await book.setGenres(selectedGenreId)
         res.redirect(book.url)
